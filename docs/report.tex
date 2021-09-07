@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+
+% Libraries
+\usepackage{hyperref}
+
+% Title page
+\title{Programming Fundamentals I: project report Space Survival}
+\author{Jacopo Fidacaro and Aron Fiechter}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Results}
+The basic idea of the game remained the same. The player controls a spaceship with the goal of reaching the next level through a portal placed on the other side of the level; obstacles and enemies of three kinds (glorbs, asteroids, sprite cans) can damage the ship, and the player can shoot them down (not the sprite cans) with the cannons; energy is limited, recharges slowly ($1/1000$ of the total each tick) and is consumed while moving or shooting, but in the final version shooting and moving consume the same amount of energy ($1/100$ of the maximum possible amount).
+The ship's energy is completely refilled at each new level, the life remains the same.
+
+\section*{Goal}
+The goal of the game (to earn as many points as possible before getting killed three times) remained the same. A different goal can be followed: to get the furthest possible in the game's levels, which become more and more difficult, without bothering with killing the enemies and just going to the next portal as fast as possible.
+When the player loses one life (when the current life bar reaches zero) a game over screen is shown, asking the player if he wants to retry from the currently reached level; after a countdown of ten seconds the player is redirected to the home screen and all the progress is lost.
+
+\section*{Structure}
+The scene is always centred on the spaceship as planned. On the border a moving radiation cloud slows down, damages and eventually (when the player goes into it really fast) bounces the ship back towards the radiation free zone. No indicator of direction pointed to the next portal was added, since the position of the portal is always the same (the upper right corner of the game).
+
+\section*{Code}
+We used the full racket language and the whole game runs as a big-bang function.
+The game structure that the big bang manages contains:
+\begin{description}
+  \item[-] the ship, with:
+  
+  position, angle, velocity vector, life left, energy left, jacopo (flag used to show damage taken)
+  \item[-] list of shots, each one with:
+  
+  position, angle, velocity vector
+  \item[-] lives left
+  \item[-] list of enemies, each one with:
+  
+  name, position, angle, life, aron (flag used to show damage taken)
+  \item[-] HPPD, current screen of the game:
+  
+  home, playing, paused, game over, instructions or exit game
+  \item[-] current score (updated only at the end of each level)
+  \item[-] current level
+  \item[-] ticker used to animate enemies, portals and radiation cloud
+\end{description}
+
+\section*{Expansion}
+What was added to what was proposed:
+\begin{description}
+  \item[-] animations on most objects in the game
+  \item[-] the different screens of the game
+\end{description}
+No bonuses or maluses were added to the game because we deemed them superfluous.
+
+
+\section*{Design}
+Jacopo designed all the sprites in the game, the radiation cloud, the game background, the current ship statistics in the game and the other screens, the mouse click icon in the instructions screen, the game title and the logo. Aron designed the life and energy bar in the game, the buttons in the game menus and the game menus themselves. \\
+Sources for the keyboard icons in the instructions screen:
+\href{http://www.wpclipart.com/computer/keyboard_keys/large_keys/computer_key_Space_bar.png.html}{Space} 
+\href{http://www.clipartoday.com/freeclipart/computer/computer/keyboardkeys7.html}{Esc}.
+
+\end{document}
