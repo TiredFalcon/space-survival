@@ -9,6 +9,7 @@
 ; Libraries: 
 (require 2htdp/image)
 (require lang/posn)
+(require racket/runtime-path)
 
 ; - Screen:
 (define WINSIZE 720)
@@ -18,12 +19,25 @@
 ; - Game speed:
 (define GAMESPEED 0.06)
 
-; - Path of executable:
-(define PATH
-  (substring (path->string (find-system-path 'run-file))
-             0
-             (- (string-length (path->string (find-system-path 'run-file)))
-                14)))
+;_______________________________________________________________________________
+; FILE_PATHS
+
+; Home
+(define-runtime-path HOME-BACKGROUND-FILE "sprites/background_2800.png")
+(define-runtime-path LOGO-PATH "sprites/logo.png")
+
+; Playing
+(define-runtime-path PORTAL-PATH "sprites/portal_64.png")
+(define-runtime-path PORTALO-PATH "sprites/portalo_64.png")
+(define-runtime-path SPACE-PATH "sprites/background_2800_2.jpg")
+(define-runtime-path RAD-PATH "sprites/rad_2800_2.png")
+(define-runtime-path SHIP-PATH "sprites/n-8_32_ss.png")
+(define-runtime-path SHOT-PATH "sprites/lasershot_16.png")
+(define-runtime-path IMM-GLORB-PATH "sprites/glorb_64_ss.png")
+(define-runtime-path IMM-SPRITE-PATH "sprites/sprito_32.png")
+(define-runtime-path IMM-ASTEROID-PATH "sprites/astrid_32.png")
+(define-runtime-path INS-BACKGROUND-PATH "sprites/command_screen.jpg")
+(define-runtime-path SOMEONE-REALLY-CLICKED-EXIT-INSTEAD-OF-JUST-CLOSING-PATH "sprites/exit.png")
 
 ;_______________________________________________________________________________
 ; BUTTONS
@@ -86,11 +100,10 @@
 ; HOME
 
 ; - Background:
-(define HOME-BACKGROUND
-  (bitmap/file (string-append PATH "sprites/background_2800.png")))
+(define HOME-BACKGROUND (bitmap/file HOME-BACKGROUND-FILE))
 
 ; - Logo and position:
-(define LOGO (bitmap/file (string-append PATH "sprites/logo.png")))
+(define LOGO (bitmap/file LOGO-PATH))
 (define LOGO-POSN (make-posn (- MIDDLE (/ (image-width LOGO) 2)) 70))
 
 ; - Homescreeen:
@@ -115,16 +128,16 @@
 ; PLAYING
 
 ; - Portal sprite:
-(define PORTAL (bitmap/file (string-append PATH "sprites/portal_64.png")))
-(define PORTALO (bitmap/file (string-append PATH "sprites/portalo_64.png")))
+(define PORTAL (bitmap/file PORTAL-PATH))
+(define PORTALO (bitmap/file PORTALO-PATH))
 (define PORTAL-BASE (circle 80 0 "black"))
 
 ; - Space sprite:
-(define SPACE (bitmap/file (string-append PATH "sprites/background_2800_2.jpg")))
+(define SPACE (bitmap/file SPACE-PATH))
 (define GAMESIZE (image-height SPACE))
 
 ; - Ratiation sprite
-(define RAD (bitmap/file (string-append PATH "sprites/rad_2800_2.png")))
+(define RAD (bitmap/file RAD-PATH))
 
 ; - Background sprite (with added portals):
 (define SCENE (underlay/xy SPACE
@@ -138,25 +151,25 @@
 
 ; - Ship sprite:
 (define SHIP
-  (crop 0 0 32 32 (bitmap/file (string-append PATH "sprites/n-8_32_ss.png"))))
+  (crop 0 0 32 32 (bitmap/file SHIP-PATH)))
 (define SHIP-DMG
-  (crop 32 0 32 32 (bitmap/file (string-append PATH "sprites/n-8_32_ss.png"))))
+  (crop 32 0 32 32 (bitmap/file SHIP-PATH)))
 
 ; - Shot sprite:
-(define SHOT (bitmap/file (string-append PATH "sprites/lasershot_16.png")))
+(define SHOT (bitmap/file SHOT-PATH))
 
 ; - Enemies sprites:
 (define GLORB "glorb")
 (define IMM-GLORB-1
-  (crop 0 0 64 64 (bitmap/file (string-append PATH "sprites/glorb_64_ss.png"))))
+  (crop 0 0 64 64 (bitmap/file IMM-GLORB-PATH)))
 (define IMM-GLORB-2
-  (crop 64 0 64 64 (bitmap/file (string-append PATH "sprites/glorb_64_ss.png"))))
+  (crop 64 0 64 64 (bitmap/file IMM-GLORB-PATH)))
 (define IMM-GLORB-D
-  (crop 128 0 192 64 (bitmap/file (string-append PATH "sprites/glorb_64_ss.png"))))
+  (crop 128 0 192 64 (bitmap/file IMM-GLORB-PATH)))
 (define SPRITE "sprite")
-(define IMM-SPRITE (bitmap/file (string-append PATH "sprites/sprito_32.png")))
+(define IMM-SPRITE (bitmap/file IMM-SPRITE-PATH))
 (define ASTEROID-A "asteroid-a")
-(define IMM-ASTEROID-A (bitmap/file (string-append PATH "sprites/astrid_32.png")))
+(define IMM-ASTEROID-A (bitmap/file IMM-ASTEROID-PATH))
 (define ASTEROID-B "asteroid-b")
 (define IMM-ASTEROID-B (scale 2 IMM-ASTEROID-A))
 (define ASTEROID-C "asteroid-c")
@@ -254,8 +267,7 @@
 ; INSTRUCTIONS
 
 ; - Background:
-(define INS-BACKGROUND
-  (bitmap/file (string-append PATH "sprites/command_screen.jpg")))
+(define INS-BACKGROUND (bitmap/file INS-BACKGROUND-PATH))
 
 ; - Instructionscreen:
 (define INSTRUCTION-SCREEN
@@ -272,7 +284,7 @@
 
 ; - SOMEONE-REALLY-CLICKED-EXIT-INSTEAD-OF-JUST-CLOSING:
 (define SOMEONE-REALLY-CLICKED-EXIT-INSTEAD-OF-JUST-CLOSING
-  (bitmap/file (string-append PATH "sprites/exit.png")))
+  (bitmap/file SOMEONE-REALLY-CLICKED-EXIT-INSTEAD-OF-JUST-CLOSING-PATH))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
